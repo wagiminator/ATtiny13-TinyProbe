@@ -14,11 +14,11 @@
 // License: http://creativecommons.org/licenses/by-sa/3.0/
 
 
-// Libraries
+// libraries
 #include <avr/io.h>
 #include <util/delay.h>
 
-// Define logic levels for TTL and CMOS at 5V
+// define logic levels for TTL and CMOS at 5V
 #define TTL_LOW   164     // ADC value for 0.8V
 #define TTL_HIGH  409     // ADC value for 2.0V
 #define CMOS_LOW  307     // ADC value for 1.5V
@@ -26,6 +26,7 @@
 #define OSC_DUR   255     // delay time for OS-LED
 
 
+// main function
 int main(void) {
   // local variables
   uint16_t valSwitch, valProbe, valHigh, valLow;

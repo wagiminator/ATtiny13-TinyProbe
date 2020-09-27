@@ -1,4 +1,8 @@
-// tinyProbe - Simple Logic Probe
+// tinyProbe - Simple Logic Probe based on ATtiny13a
+//
+// TinyProbe is a very simple 5V logic probe for TTL and CMOS
+// logic. The probe can detect high (HI), low (LO), floating (FL)
+// and oscillating (OS) signals and displays them via four LEDs.
 //
 //                                +-\/-+
 // Level Select --- A0 (D5) PB5  1|    |8  Vcc
@@ -7,10 +11,16 @@
 //                          GND  4|    |5  PB0 (D0) ------ LED (Charlieplex)
 //                                +----+    
 //
+// RESET pin (PB5) is used as a weak analog input for the 
+// TTL/CMOS select switch. You don't need to disable the 
+// RESET pin as the voltage won't go below 40% of Vcc.
+//
 // Controller:  ATtiny13
 // Clockspeed:  1.2 MHz internal
 //
-// 2020 by Stefan Wagner (https://easyeda.com/wagiminator)
+// 2020 by Stefan Wagner 
+// Project Files (EasyEDA): https://easyeda.com/wagiminator
+// Project Files (Github):  https://github.com/wagiminator
 // License: http://creativecommons.org/licenses/by-sa/3.0/
 
 

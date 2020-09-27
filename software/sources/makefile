@@ -7,11 +7,11 @@
 # type "make help" in the command line
 
 # Microcontroller Options
-DEVICE 	= attiny13
-CLOCK	  = 1200000
+DEVICE  = attiny13
+CLOCK   = 1200000
 PROGRMR = usbasp
-HFUSE	  = 0xfb
-LFUSE	  = 0x2a
+HFUSE   = 0xfb
+LFUSE   = 0x2a
 
 # Objects
 OBJECTS = main.o
@@ -19,7 +19,7 @@ OBJECTS = main.o
 # Commands
 AVRDUDE = avrdude -c $(PROGRMR) -p $(DEVICE)
 COMPILE = avr-gcc -Wall -Os -mmcu=$(DEVICE) -DF_CPU=$(CLOCK) -DDEBUG_LEVEL=0
-CLEAN	  = rm -f main.lst main.obj main.cof main.list main.map main.eep.hex *.o main.s
+CLEAN   = rm -f main.lst main.obj main.cof main.list main.map main.eep.hex *.o main.s
 
 # Symbolic Targets
 all:	help

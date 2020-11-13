@@ -1,6 +1,6 @@
-# TinyProbe - Logic Probe based on ATtiny13a
+# TinyProbe - Logic Probe based on ATtiny13A
 
-TinyProbe is a very simple 5V logic probe for TTL and CMOS logic based on ATtiny13a. The probe can detect high (HI), low (LO), floating (FL) and oscillating (OS) signals and displays them via four LEDs.
+TinyProbe is a very simple 5V logic probe for TTL and CMOS logic based on ATtiny13A. The probe can detect high (HI), low (LO), floating (FL) and oscillating (OS) signals and displays them via four LEDs.
 
 Project Video: https://youtu.be/mwY1OOxqLTI
 

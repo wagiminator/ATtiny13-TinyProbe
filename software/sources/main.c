@@ -1,4 +1,4 @@
-// tinyProbe - Simple Logic Probe based on ATtiny13a
+// tinyProbe - Simple Logic Probe based on ATtiny13A
 //
 // TinyProbe is a very simple 5V logic probe for TTL and CMOS
 // logic. The probe can detect high (HI), low (LO), floating (FL)
@@ -15,7 +15,7 @@
 // TTL/CMOS select switch. You don't need to disable the 
 // RESET pin as the voltage won't go below 40% of Vcc.
 //
-// Controller:  ATtiny13
+// Controller:  ATtiny13A
 // Clockspeed:  1.2 MHz internal
 //
 // 2020 by Stefan Wagner 
@@ -72,6 +72,7 @@ int main(void) {
     isFloating &= (~PINB);            // get inverse of input values
     isFloating &= 0b00001000;         // mask the probe line (PB3)
     DDRB  &= 0b11101111;              // set pull pin to input
+    _delay_us(10);                    // wait a bit
 
     // read voltage on probe line and check if it's logic high or low
     ADMUX   = 0b00000011;             // set ADC3 against VCC

@@ -2,7 +2,8 @@
 
 TinyProbe is a very simple 5V logic probe for TTL and CMOS logic based on ATtiny13A. The probe can detect high (HI), low (LO), floating (FL) and oscillating (OS) signals and displays them via four LEDs.
 
-Project Video: https://youtu.be/mwY1OOxqLTI
+- Project on EasyEDA: https://easyeda.com/wagiminator/attiny13-tinyprobe
+- Project Video: https://youtu.be/mwY1OOxqLTI
 
 ![IMG_20200913_103028_x.jpg](https://image.easyeda.com/pullimage/SOqH2wsPMJqBppZzAwETnCwJVtQcSWTawatudKyE.jpeg)
 ![IMG_20200913_103009_x.jpg](https://image.easyeda.com/pullimage/cJyxdTUXueBnLWqMnejZTMJQZLLRc7BwzEJzYXAx.jpeg)

@@ -5,12 +5,12 @@ TinyProbe is a very simple 5V logic probe for TTL and CMOS logic based on ATtiny
 - Project on EasyEDA: https://easyeda.com/wagiminator/attiny13-tinyprobe
 - Project Video: https://youtu.be/mwY1OOxqLTI
 
-![pic1.jpg](https://github.com/wagiminator/ATtiny13-TinyProbe/blob/main/documentation/TinyProbe_pic1.jpg)
+![pic1.jpg](https://github.com/wagiminator/ATtiny13-TinyProbe/blob/master/documentation/TinyProbe_pic1.jpg)
 
 # Hardware
 The basic wiring is shown below:
 
-![wiring.png](https://github.com/wagiminator/ATtiny13-TinyProbe/blob/main/documentation/TinyProbe_wiring.png)
+![wiring.png](https://github.com/wagiminator/ATtiny13-TinyProbe/blob/master/documentation/TinyProbe_wiring.png)
 
 GND must be connected to ground of the test board, VCC to 5 Volts. In order to keep the device as simple as possible, input protection has been dispensed with.
 
@@ -134,5 +134,5 @@ If using the makefile (Linux/Mac):
 - Navigate to the folder with the makefile and main.c.
 - Run "make install" to compile, burn the fuses and upload the firmware.
 
-![pic2.jpg](https://github.com/wagiminator/ATtiny13-TinyProbe/blob/main/documentation/TinyProbe_pic2.jpg)
-![pic3.jpg](https://github.com/wagiminator/ATtiny13-TinyProbe/blob/main/documentation/TinyProbe_pic3.jpg)
+![pic2.jpg](https://github.com/wagiminator/ATtiny13-TinyProbe/blob/master/documentation/TinyProbe_pic2.jpg)
+![pic3.jpg](https://github.com/wagiminator/ATtiny13-TinyProbe/blob/master/documentation/TinyProbe_pic3.jpg)

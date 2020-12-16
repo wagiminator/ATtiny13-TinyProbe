@@ -27,28 +27,34 @@
 // License: http://creativecommons.org/licenses/by-sa/3.0/
 
 
-// Libraries
+// libraries
 #include <avr/io.h>
+#include <avr/interrupt.h>
 #include <util/delay.h>
 
-// Define logic levels for TTL and CMOS at 5V
+// define logic levels for TTL and CMOS at 5V
 #define TTL_LOW   164     // ADC value for 0.8V
 #define TTL_HIGH  409     // ADC value for 2.0V
 #define CMOS_LOW  307     // ADC value for 1.5V
 #define CMOS_HIGH 716     // ADC value for 3.5V
-#define OSC_DUR   255     // delay time for OS-LED
+#define OSC_DUR    50     // delay time for OS-LED
 
+// global variables
+volatile uint8_t isOscillating;
 
+// main function
 int main(void) {
   // local variables
   uint16_t valSwitch, valProbe, valHigh, valLow;
   uint8_t  isHigh, isLow, lastHigh, lastLow;
-  uint8_t  isFloating, isOscillating;
+  uint8_t  isFloating;
   
-  // setup GPIO and ADC
+  // setup GPIO, ADC and interrupts
   DDRB    = 0b00000111;   // set LED pins as output, rest as input
   PORTB   = 0b00000000;   // LEDs off, no pullups on input pins
   ADCSRA  = 0b10000011;   // ADC on, prescaler 8
+  GIMSK   = 0b00100000;   // turn on pin change interrupts
+  SREG   |= 0b10000000;   // enable global interrupts
 
   // main loop
   while(1) {
@@ -64,19 +70,25 @@ int main(void) {
       valHigh = CMOS_HIGH;            // set high value for CMOS
     }
 
-    // check if probe is floating by testing the behavior when pulling up/down
+    // check high frequency oscillation using pin change interrupt on probe line
     DDRB  |= 0b00010000;              // set pull pin to output (PB4)
-    PORTB |= 0b00010000;              // pull up probe line
+    PORTB |= 0b00010000;              // pull up probe line (to avoid floating)
     _delay_us(10);                    // wait a bit
-    isFloating = PINB;                // get input values
+    GIFR  |= 0b00100000;              // clear any outstanding pin change interrupt
+    PCMSK  = 0b00001000;              // turn on interrupt on probe pin
+    _delay_ms(1);                     // wait a millisecond (check >500Hz oscillation)
+    PCMSK  = 0b00000000;              // turn off interrupt on probe pin
+
+    // check if probe is floating by testing the behavior when pulling up/down   
+    isFloating = PINB;                // get input values (line is already pulled up)
     PORTB &= 0b11101111;              // pull down probe line
     _delay_us(10);                    // wait a bit
     isFloating &= (~PINB);            // get inverse of input values
     isFloating &= 0b00001000;         // mask the probe line (PB3)
-    DDRB  &= 0b11101111;              // set pull pin to input
+    DDRB  &= 0b11101111;              // set pull pin to input (disable pull)
     _delay_us(10);                    // wait a bit
-
-    // read voltage on probe line and check if it's logic high or low
+    
+    // read voltage on probe line and check if it's logic high or low  
     ADMUX   = 0b00000011;             // set ADC3 against VCC
     ADCSRA |= 0b01000000;             // start ADC conversion
     while(ADCSRA & 0b01000000);       // wait for ADC conversion complete
@@ -84,11 +96,11 @@ int main(void) {
     isHigh = (valProbe > valHigh);    // check if probe is logic high
     isLow  = (valProbe < valLow);     // check if probe is logic low
 
-    // check if probe line is oscillating
-    if ((isHigh && lastLow) || (isLow && lastHigh)) isOscillating = OSC_DUR;
-    lastHigh = isHigh;
-    lastLow  = isLow;
-
+    // check low frequency oscillation
+    if (!isFloating && ((isHigh && lastLow) || (isLow && lastHigh))) isOscillating = OSC_DUR;
+    lastHigh = isHigh; lastLow  = isLow;
+    if (isOscillating) isFloating = 0;    // avoid misdetection
+    
     // set the LEDs (charlieplexing)
     PORTB &= 0b11111000;                  // switch off all LEDs
     if (isFloating) PORTB |= 0b00000100;  // if probe is floating: set FL LED
@@ -102,4 +114,9 @@ int main(void) {
       }
     }
   }
+}
+
+// pin change interrupt service routine
+ISR(PCINT0_vect) {
+  isOscillating = OSC_DUR;            // oscillating signal on pin change
 }

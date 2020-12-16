@@ -18,6 +18,12 @@ GND must be connected to ground of the test board, VCC to 5 Volts. In order to k
 After setting up the GPIO pins, the ADC and the pin change interrupt, the tests are carried out in the main loop. First the position of the TTL / CMOS switch is queried. Although this switch is connected to the RESET pin of the ATtiny, it does not trigger a RESET, as the voltage on the pin never drops below 40% VCC due to the voltage divider. Depending on the switch position, the voltage is VCC or VCC / 2. The threshold values for the detection of a HIGH or LOW signal are set accordingly.
 
 ```c
+// define logic levels for TTL and CMOS at 5V
+#define TTL_LOW   164     // ADC value for 0.8V
+#define TTL_HIGH  409     // ADC value for 2.0V
+#define CMOS_LOW  307     // ADC value for 1.5V
+#define CMOS_HIGH 716     // ADC value for 3.5V
+
 // check logic level selection switch and set high/low thresholds accordingly
 valLow  = TTL_LOW;                // set low value for TTL
 valHigh = TTL_HIGH;               // set high value for TTL

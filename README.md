@@ -2,8 +2,8 @@
 
 TinyProbe is a very simple 5V logic probe for TTL and CMOS logic based on ATtiny13A. The probe can detect high (HI), low (LO), floating (FL) and oscillating (OS) signals and displays them via four LEDs.
 
-- Project on EasyEDA: https://easyeda.com/wagiminator/attiny13-tinyprobe
-- Project Video: https://youtu.be/mwY1OOxqLTI
+- Project Video (YouTube): https://youtu.be/mwY1OOxqLTI
+- Project Files (EasyEDA): https://easyeda.com/wagiminator/attiny13-tinyprobe
 
 ![pic1.jpg](https://github.com/wagiminator/ATtiny13-TinyProbe/blob/master/documentation/TinyProbe_pic1.jpg)
 
@@ -16,6 +16,8 @@ GND must be connected to ground of the test board, VCC to 5 Volts. In order to k
 
 # Software
 After setting up the GPIO pins, the ADC and the pin change interrupt, the tests are carried out in the main loop. First the position of the TTL / CMOS switch is queried. Although this switch is connected to the RESET pin of the ATtiny, it does not trigger a RESET, as the voltage on the pin never drops below 40% VCC due to the voltage divider. Depending on the switch position, the voltage is VCC or VCC / 2. The threshold values for the detection of a HIGH or LOW signal are set accordingly.
+
+![levels.png](https://github.com/wagiminator/ATtiny13-TinyProbe/blob/master/documentation/TinyProbe_levels.png)
 
 ```c
 // define logic levels for TTL and CMOS at 5V
@@ -139,6 +141,10 @@ If using the makefile (Linux/Mac):
 - Open a terminal.
 - Navigate to the folder with the makefile and main.c.
 - Run "make install" to compile, burn the fuses and upload the firmware.
+
+# References, Links and Notes
+1. [ATtiny13A Datasheet](http://ww1.microchip.com/downloads/en/DeviceDoc/doc8126.pdf)
+2. [Logic Guide by TI](https://www.ti.com/lit/sg/sdyu001ab/sdyu001ab.pdf)
 
 ![pic2.jpg](https://github.com/wagiminator/ATtiny13-TinyProbe/blob/master/documentation/TinyProbe_pic2.jpg)
 ![pic3.jpg](https://github.com/wagiminator/ATtiny13-TinyProbe/blob/master/documentation/TinyProbe_pic3.jpg)

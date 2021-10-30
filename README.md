@@ -138,7 +138,7 @@ Since there is no ICSP header on the board, you have to program the ATtiny eithe
 - Navigate to the folder with the hex-file.
 - Execute the following command (if necessary replace "usbasp" with the programmer you use):
   ```
-  avrdude -c usbasp -p t13 -U lfuse:w:0x2a:m -U hfuse:w:0xfb:m -U flash:w:TinyProbe.hex
+  avrdude -c usbasp -p t13 -U lfuse:w:0x2a:m -U hfuse:w:0xfb:m -U flash:w:tinyprobe.hex
   ```
 
 ### If using the makefile (Linux/Mac)
@@ -146,7 +146,7 @@ Since there is no ICSP header on the board, you have to program the ATtiny eithe
 - Connect your programmer to your PC and to the ATtiny.
 - Open the makefile and change the programmer if you are not using usbasp.
 - Open a terminal.
-- Navigate to the folder with the makefile and main.c.
+- Navigate to the folder with the makefile and sketch.
 - Run "make install" to compile, burn the fuses and upload the firmware.
 
 # References, Links and Notes
